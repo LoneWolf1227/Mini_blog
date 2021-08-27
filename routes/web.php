@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
+Route::get('/posts', [PostController::class, 'index'])->name('post.index');
+
+Route::get('/posts/{tag}', [PostController::class, 'allByTag'])->name('post.tag');
+
+Route::get('/post/add',[PostController::class, 'add'])->name('post.add');
+
+Route::post('/post/add', [PostController::class, 'store'])->name('post.store');

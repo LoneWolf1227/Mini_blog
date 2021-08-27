@@ -1,0 +1,1 @@
+@extends('app.post.index')
