@@ -17,9 +17,9 @@ use App\Http\Controllers\HomeController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/posts', [PostController::class, 'index'])->name('post.index');
+Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
 
-Route::get('/posts/{tag}', [PostController::class, 'allByTag'])->name('post.tag');
+Route::get('/posts/tag/{tag}', [PostController::class, 'allByTag'])->name('posts.tag');
 
 Route::get('/post/add',[PostController::class, 'add'])->name('post.add');
 

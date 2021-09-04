@@ -8,11 +8,12 @@
                     <div class="card-body">
                         <h5 class="card-title">{{$post->title}}</h5>
                         <p class="card-text">{{$post->getBodyPreview()}}</p>
-                        <p>{{$post->createdAtForHumans()}}</p>
+                        <p>{{$post->publishedAtForHumans()}}</p>
+                        <a href="" class="btn btn-primary">Подробнее</a>
                         <div class="mt-4">
                             Теги:
                             @foreach ($post->tags as $tag)
-                                <a href=" {{ route('post.tag', $tag->id) }}" class="badge bg-danger">{{$tag->label}}</a>
+                                <a href=" {{ route('posts.tag', $tag->id) }}" class="badge bg-danger">{{$tag->label}}</a>
                             @endforeach
                         </div>
 

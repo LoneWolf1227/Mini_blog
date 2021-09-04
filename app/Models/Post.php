@@ -12,6 +12,8 @@ class Post extends Model
 
     protected array $fillable = [ 'title', 'body', 'slug'];
 
+    public $dates = ['published_at'];
+
     public function tags()
     {
         return $this->belongsToMany(Tag::class);
@@ -22,9 +24,9 @@ class Post extends Model
         return Str::limit($this->body, 100);
     }
 
-    public function createdAtForHumans()
+    public function publishedAtForHumans()
     {
-        return $this->created_at->diffForHumans();
+        return $this->published_at->diffForHumans();
     }
 
     public function scopeLastLimit($query, $numbers)

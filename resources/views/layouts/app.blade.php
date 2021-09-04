@@ -14,17 +14,16 @@
         <div class="container-fluid">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link menu-link"
+                    <a class="nav-link menu-link {{$homeActive}}"
                        href=" {{ route('home')  }} ">Main</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link"
-                       href=" {{ route('post.index')  }} ">All posts</a>
+                    <a class="nav-link menu-link {{$allPostsActive}}"
+                       href=" {{ route('posts.index')  }} ">All posts</a>
                 </li>
-
                 <li class="nav-item">
-                    <a class="nav-link menu-link"
-                       href=" {{ route('post.index')  }} ">Add post</a>
+                    <a class="nav-link menu-link {{$addPostActive}}"
+                       href=" {{ route('post.add')  }} ">Add post</a>
                 </li>
             </ul>
             <a class="d-flex justify-content-end " href="https://github.com/LoneWolf1227">
@@ -32,7 +31,6 @@
             </a>
         </div>
     </nav>
-    @yield('hero')
     @yield('content')
     @yield('vue')
 </div>

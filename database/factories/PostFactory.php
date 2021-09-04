@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Post;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Carbon\Carbon;
 use Illuminate\Support\Str;
 
 class PostFactory extends Factory
@@ -29,6 +30,7 @@ class PostFactory extends Factory
             'title' => $title,
             'body' => $this->faker->paragraph(100, true),
             'slug' => $slug,
+            'published_at' => Carbon::now()
         ];
     }
 }
