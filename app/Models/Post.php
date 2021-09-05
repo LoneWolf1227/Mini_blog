@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Str;
 
 class Post extends Model
@@ -14,12 +17,22 @@ class Post extends Model
 
     public $dates = ['published_at'];
 
-    public function tags()
+    public function comments(): HasMany
     {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function state(): HasOne
+    {
+        return $this->hasOne(State::class);
+    }
+
+    public function tags(): BelongsToMany
+{
         return $this->belongsToMany(Tag::class);
     }
 
-    public function getBodyPreview()
+    public function getBodyPreview(): string
     {
         return Str::limit($this->body, 100);
     }
