@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Comment;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CommentFactory extends Factory
@@ -23,7 +24,8 @@ class CommentFactory extends Factory
     {
         return [
             'subject' => $this->faker->sentence(3),
-            'body' => $this->faker->paragraph(3, false)
+            'body' => $this->faker->paragraph(3, false),
+            'created_at' => Carbon::now()
         ];
     }
 }

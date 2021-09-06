@@ -8,9 +8,6 @@ use App\Models\Tag;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use Validator;
 
 use App\Http\Requests\Post\CreateRequest;
 
@@ -27,7 +24,7 @@ class PostController extends Controller
 
     public function allByTag(Tag $tag)
     {
-        $posts = $tag->posts()->findByTag(5);
+        $posts = Post::findByTag(5);
         return view('app.post.byTag', compact('posts'));
     }
 
@@ -40,7 +37,13 @@ class PostController extends Controller
     {
         AddNewPost::dispatch($request['title'], $request['body'], $request['tags']);
 
-        return back()->with('success', 'Пост создан успешно.');
+        return back()->with('success', 'Post created successfully.');
+    }
+
+    public function show($slug)
+    {
+        $post = Post::findBySlug($slug);
+        return view('app.post.show', compact('post'));
     }
 
 }

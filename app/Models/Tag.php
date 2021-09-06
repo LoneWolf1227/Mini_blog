@@ -18,27 +18,14 @@ class Tag extends Model
         return $this->belongsToMany(Post::class);
     }
 
-    public function scopeFindByLabelOrCreateNew($query, $label)
+    public function scopeFirstOrCreateNew($query, $label)
     {
         $tags = explode(', ', $label);
 
         foreach ($tags as $tag) {
-            $id = $this->newModelQuery()->where('label', '=', $tag)->get();
-
-            if (empty($id) || empty($id->toArray())) {
-                $ids[] = Tag::newTag($tag);
-            } else {
-                $ids[] = $id->toArray()['0']['id'];
-            }
+            $ids[] = $this->newModelQuery()->firstOrCreate(['label' => $tag], ['label' => $tag])->id;
         }
 
         return $ids ?? false;
-    }
-
-    public function scopeNewTag($query, $label)
-    {
-        $this->label = $label;
-        $this->save();
-        return $this->id;
     }
 }

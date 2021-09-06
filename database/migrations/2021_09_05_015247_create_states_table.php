@@ -15,9 +15,9 @@ class CreateStatesTable extends Migration
     {
         Schema::create('states', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('likes');
-            $table->unsignedBigInteger('views');
-            $table->unsignedBigInteger('post_id');
+            $table->unsignedBigInteger('likes')->default('0');
+            $table->unsignedBigInteger('views')->default('0');
+            $table->foreignId('post_id')->constrained()->onDelete('cascade');
         });
     }
 

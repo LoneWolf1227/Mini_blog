@@ -5,7 +5,6 @@ namespace App\Jobs;
 use App\Models\Post;
 use App\Models\Tag;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -38,12 +37,13 @@ class AddNewPost implements ShouldQueue
      */
     public function handle()
     {
-        $tagsId = Tag::FindByLabelOrCreateNew($this->tags);
+        $tagsId = Tag::firstOrCreateNew($this->tags);
         $post = new Post();
         $post->title = $this->title;
         $post->slug = Str::slug($this->title, '-', 'en');
         $post->body = $this->body;
         $post->save();
+        $post->state()->create(['post_id' => $post->id]);
         $post->tags()->attach($tagsId);
     }
 }

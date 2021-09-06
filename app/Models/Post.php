@@ -39,21 +39,29 @@ class Post extends Model
 
     public function publishedAtForHumans()
     {
-        return $this->published_at->diffForHumans();
+        if (! empty($this->published_at)) {
+            return $this->published_at->diffForHumans();
+        }
+        return '';
     }
 
     public function scopeLastLimit($query, $numbers)
     {
-        return  $query->with('tags')->orderBy('created_at', 'desc')->take($numbers)->get();
+        return $query->with('tags', 'state')->orderBy('created_at', 'desc')->take($numbers)->get();
     }
 
     public function scopeAllPaginate($query, $numbers)
     {
-        return  $query->with('tags')->orderBy('created_at', 'desc')->paginate($numbers);
+        return $query->with('tags', 'state')->orderBy('created_at', 'desc')->paginate($numbers);
     }
 
     public function scopeFindByTag($query, $numbers)
     {
-        return  $query->with('tags')->orderBy('created_at', 'desc')->paginate($numbers);
+        return  $query->with('tags', 'state')->orderBy('created_at', 'desc')->paginate($numbers);
+    }
+
+    public function scopeFindBySlug($query, $slug)
+    {
+        return $query->with('comments', 'tags', 'state')->where('slug', $slug)->firstOrfail();
     }
 }
